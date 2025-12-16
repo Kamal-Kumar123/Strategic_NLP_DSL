@@ -1,173 +1,200 @@
-🧠 Natural Language to Trading Strategy DSL
+# 🧠 Natural Language to Trading Strategy DSL
 
-A lightweight end-to-end system that converts natural language trading strategies into a custom Domain-Specific Language (DSL), parses them into an Abstract Syntax Tree (AST), and executes a backtest on OHLCV market data.
+> Convert **human-readable trading strategies** into a **machine-executable trading DSL**, generate an **AST**, and run a **backtest** — end to end.
 
-This project demonstrates the full pipeline:
-Natural Language → DSL → AST → Execution → Performance Metrics
+---
 
-✨ Features
+## 🚀 Overview
 
-🗣️ Natural Language Strategy Input
+A lightweight yet powerful system that transforms **natural language trading ideas** into a **custom Domain-Specific Language (DSL)**, parses them into an **Abstract Syntax Tree (AST)**, and executes them on **OHLCV market data**.
 
-🧩 Custom Declarative Trading DSL
+Pipeline:
 
-🌳 AST Construction with Boolean Logic
+Natural Language → DSL → AST → Execution → Metrics
 
-📊 Technical Indicators (SMA, RSI)
+---
 
-🔁 Entry & Exit Signal Evaluation
+## ✨ Features
 
-💹 Backtesting Engine with Metrics
+- 🗣️ Natural language strategy input  
+- 🧩 Custom declarative trading DSL  
+- 🌳 AST construction with boolean logic  
+- 📊 Built-in indicators (SMA, RSI)  
+- 🔁 Entry & exit signal evaluation  
+- 💹 Backtesting engine with performance metrics  
+- 🤖 Optional LLM support (Gemini / Gemma)  
+- ⚡ Hybrid parsing (Regex → LLM fallback)
 
-🤖 Optional LLM Integration (Gemini / Gemma)
+---
 
-🏗️ Project Workflow
-Natural Language Strategy
-            ↓
-      DSL Generation
-            ↓
-      AST Parsing
-            ↓
- Entry / Exit Evaluation
-            ↓
-      Backtesting Engine
-            ↓
-   Trades & Performance Metrics
+## 🏗️ System Flow
 
+Strategy (Text)  
+↓  
+DSL Generator  
+↓  
+AST Builder  
+↓  
+Signal Evaluation  
+↓  
+Backtesting Engine  
+↓  
+Trades & Metrics  
 
-🛠️ Setup Instructions
+---
 
-1️⃣ Create Virtual Environment
-python -m venv venv
-source venv/bin/activate      # Ubuntu / Mac
-venv\Scripts\activate         # Windows
+## 🛠️ Setup
 
-2️⃣ Configure LLM (Optional)
+### 1️⃣ Create Virtual Environment
 
-Create a .env file in the root directory:
+python -m venv venv  
+source venv/bin/activate      # Linux / Mac  
+venv\Scripts\activate         # Windows  
 
-GEMINI_API_KEY=your_api_key_here
+---
 
+### 2️⃣ Configure LLM (Optional)
 
-Free Gemini API keys (limited tokens) can be used
+Create a `.env` file:
 
-Model Used: models/gemma-3-12b-it
+GEMINI_API_KEY=your_api_key_here  
 
-LLM is optional — rule-based logic works without it
+Model: models/gemma-3-12b-it  
+LLM is optional — rule-based parsing works without it.
 
-3️⃣ Dataset Configuration
+---
 
-Provide a path to an OHLCV CSV dataset
-OR
+### 3️⃣ Dataset
 
-Create a small custom dataset (example shown in main.py)
+Provide an OHLCV CSV file or define a small inline dataset in `main.py`.
 
-Supported fields:
+Required columns:
 
 open, high, low, close, volume
 
-4️⃣ Install Dependencies
+---
+
+### 4️⃣ Install Dependencies
+
 pip install -r requirements.txt
 
-5️⃣ Configure Inputs
+---
 
-In main.py:
+### 5️⃣ Configure Strategy
 
-Hardcode the natural language strategy
+Edit `main.py`:
 
-Set the dataset path or inline dataset
+Buy when close is above 20-day SMA and RSI is below 30.  
+Exit when close falls below SMA.
 
-Example:
+---
 
-"Buy when close is above 20-day SMA and RSI is below 30.
- Exit when close falls below SMA."
+### 6️⃣ Run Project
 
-6️⃣ Run the Project
-python main.py      # Windows
-python3 main.py     # Ubuntu
+python main.py      # Windows  
+python3 main.py     # Linux / Mac  
 
-📥 Input & 📤 Output
-✅ Input
+---
 
-Natural language trading strategy
+## 📥 Input & 📤 Output
 
-OHLCV CSV market data
+Input:
+- Natural language trading strategy  
+- OHLCV market data  
 
-📌 Output
+Output:
+- Generated DSL  
+- Parsed AST  
+- Entry / Exit signals  
+- Executed trades  
+- Performance metrics (PnL, drawdown)
 
-✔ Generated DSL
+---
 
-✔ Parsed Abstract Syntax Tree (AST)
+## 📄 Example Output
 
-✔ Entry / Exit signals
-
-✔ Executed trades
-
-✔ Backtest performance metrics (PnL, drawdown, etc.)
-
-📄 Example Output
 Generated DSL:
-ENTRY:
-close > sma(close, 20) AND rsi(close,14) < 30
 
-EXIT:
-close < sma(close, 20)
+ENTRY:  
+close > sma(close, 20) AND rsi(close,14) < 30  
+
+EXIT:  
+close < sma(close, 20)  
 
 AST:
-AND
- ├── close > sma(20)
- └── rsi < 30
 
-🧩 Supported DSL Components
-Indicators
+AND  
+├── close > sma(20)  
+└── rsi < 30  
 
-sma(close, N)
+---
 
-rsi(close, N) (default N = 14)
+## 🧩 Supported DSL
 
-Operators
+Indicators:
+- sma(close, N)
+- rsi(close, N) (default N = 14)
 
+Operators:
 >, <, >=, <=, ==
 
-Boolean logic: AND, OR
+Logic:
+AND, OR
 
-📁 Project Structure (Suggested)
-.
-├── main.py
-├── parser/
-│   ├── grammar.py
-│   ├── ast_builder.py
-├── dsl/
-│   ├── generator.py
-├── backtest/
-│   ├── engine.py
-├── data/
-│   └── sample.csv
-├── requirements.txt
-└── README.md
+---
 
-🎯 Use Cases
+## 📁 Project Structure
 
-Academic DSL & compiler design projects
+Strategic_NLP_DSL/
 
-Algorithmic trading strategy prototyping
+├── AST_TO_CODE_Generation/  
+│   └── code_generator.py  
 
-Natural language interfaces for trading systems
+├── Backtest_Engine/  
+│   └── backtest.py  
 
-Research in NL → Program synthesis
+├── DSL_Generator/  
+│   ├── nl_to_dsl.py  
+│   ├── nl_to_dsl_llm.py  
+│   └── nl_to_dsl_hybrid.py  
 
-🚀 Future Extensions
+├── DSL_To_AST_Generator/  
+│   ├── ast_evaluator.py  
+│   ├── dsl_parser.py  
+│   └── indicators.py  
 
-Support for more indicators (EMA, MACD, Bollinger Bands)
+├── NLP_DSL/  
 
-Strategy optimization & parameter tuning
+├── dataset.csv  
+├── main.py  
+├── config.py  
+├── requirements.txt  
+├── .env  
+├── .gitignore  
+├── Documentation.pdf  
+└── README.md  
 
-Visualization of trades
+---
 
-Multiple asset backtesting
+## 🎯 Use Cases
 
-Risk management rules (SL / TP)
+- DSL & compiler design projects  
+- Algorithmic trading prototyping  
+- Natural language program synthesis  
+- AI-driven trading research  
 
-📜 License
+---
 
-This project is intended for educational and research purposes.
+## 🚧 Future Work
+
+- More indicators (EMA, MACD, Bollinger Bands)  
+- Strategy optimization  
+- Trade visualization  
+- Multi-asset support  
+- Risk management (SL / TP)  
+
+---
+
+## 📜 License
+
+Educational and research use only.
